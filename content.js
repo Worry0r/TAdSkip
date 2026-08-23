@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function showNotification(text) {
+    function showNotification() {
         const box = document.createElement('div');
         
         // Načtení ikony z rozšíření
@@ -9,38 +9,28 @@
         img.src = chrome.runtime.getURL('icon.png');
         img.style.width = '200px';
         img.style.height = '200px';
-        img.style.borderRadius = '4px';
-
-        const textSpan = document.createElement('span');
-        textSpan.innerText = text;
+        img.style.borderRadius = '6px';
+        img.style.display = 'block';
 
         box.appendChild(img);
-        box.appendChild(textSpan);
 
-        // Stylování oznamovacího okna v LEVÉM horním rohu
+        // Stylování okna s ikonou v levém horním rohu
         Object.assign(box.style, {
             position: 'fixed',
-            top: '20px',
-            left: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            backgroundColor: '#d9534f',
-            color: '#ffffff',
-            padding: '100px 160px',
-            borderRadius: '8px',
+            top: '200px',
+            left: '10px',
+            backgroundColor: '#5d4fd9',
+            padding: '2px',
+            borderRadius: '10px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
             zIndex: '9999999',
-            fontSize: '160px',
-            fontWeight: 'bold',
-            fontFamily: 'sans-serif',
             pointerEvents: 'none',
             transition: 'opacity 0.5s ease'
         });
 
         document.body.appendChild(box);
 
-        // Po 3 sekundách okno zmizí
+        // Po 3 sekundách ikona zmizí
         setTimeout(() => {
             box.style.opacity = '0';
             setTimeout(() => box.remove(), 500);
@@ -52,14 +42,14 @@
         video.dataset.skipHandled = "true";
 
         const skip = () => {
-            // Čekání 1 vteřinu (1000 ms) před spuštěním
+            // Čekání 2 vteřiny (2000 ms) před přeskočením
             setTimeout(() => {
                 // 1. Přeskočení videa
                 video.dispatchEvent(new Event('ended'));
                 
-                // 2. Zobrazení oznámení s ikonou
-                showNotification("Jsem negr");
-            }, 1000);
+                // 2. Zobrazení ikony
+                showNotification();
+            }, 2000);
         };
 
         if (video.readyState >= 2) {
