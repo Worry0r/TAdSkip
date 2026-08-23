@@ -1,10 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Travian Video Auto Skip",
-  "version": "2.0",
-  "description": "Milujeme tě Radovane",
+  "version": "3.0",
+  "description": "Radovane, Miluji tě",
   "permissions": [
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "notifications"
   ],
   "host_permissions": [
     "*://*.travian.cz/*",
@@ -12,6 +13,9 @@
     "*://*.traviangames.com/*",
     "*://*.ayetstudios.com/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "icons": {
     "128": "icon.png"
   },
@@ -31,7 +35,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["icon.png"],
+      "resources": ["icon.png", "welcome.html"],
       "matches": [
         "*://*.travian.cz/*",
         "*://*.travian.com/*",
