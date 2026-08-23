@@ -3,6 +3,7 @@
 3. Unpack Folder
 4. Browser settings
 5. Extensions
-6. Load unpacked
-7. Select folder
-8. Enjoy
+6. Developer mode
+7. Load unpacked
+8. Select folder
+9. Enjoy
