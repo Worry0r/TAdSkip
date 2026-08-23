@@ -42,14 +42,14 @@
         video.dataset.skipHandled = "true";
 
         const skip = () => {
-            // Čekání 2 vteřiny (2000 ms) před přeskočením
+            // Čekání 0.5 vteřiny (500 ms) před přeskočením
             setTimeout(() => {
                 // 1. Přeskočení videa
                 video.dispatchEvent(new Event('ended'));
                 
                 // 2. Zobrazení ikony
                 showNotification();
-            }, 2000);
+            }, 500);
         };
 
         if (video.readyState >= 2) {
