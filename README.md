@@ -1,5 +1,8 @@
-1. Browser settings
-2. Extensions
-3. Load unpacked
-4. Select folder
-5. Enjoy
+1. <>Code
+2. Download ZIP
+3. Unpack Folder
+4. Browser settings
+5. Extensions
+6. Load unpacked
+7. Select folder
+8. Enjoy
