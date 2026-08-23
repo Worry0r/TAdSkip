@@ -2,9 +2,11 @@
     'use strict';
 
     function showNotification() {
+        if (document.getElementById('travian-skip-icon')) return;
+
         const box = document.createElement('div');
+        box.id = 'travian-skip-icon';
         
-        // Načtení ikony z rozšíření
         const img = document.createElement('img');
         img.src = chrome.runtime.getURL('icon.png');
         img.style.width = '200px';
@@ -14,13 +16,12 @@
 
         box.appendChild(img);
 
-        // Stylování okna s ikonou v levém horním rohu
         Object.assign(box.style, {
             position: 'fixed',
             top: '200px',
             left: '10px',
-            backgroundColor: '#5d4fd9',
-            padding: '2px',
+            backgroundColor: '#d9534f',
+            padding: '8px',
             borderRadius: '10px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
             zIndex: '9999999',
@@ -30,7 +31,6 @@
 
         document.body.appendChild(box);
 
-        // Po 3 sekundách ikona zmizí
         setTimeout(() => {
             box.style.opacity = '0';
             setTimeout(() => box.remove(), 500);
@@ -41,30 +41,42 @@
         if (video.dataset.skipHandled) return;
         video.dataset.skipHandled = "true";
 
-        const skip = () => {
-            // Čekání 0.5 vteřiny (500 ms) před přeskočením
-            setTimeout(() => {
-                // 1. Přeskočení videa
-                video.dispatchEvent(new Event('ended'));
-                
-                // 2. Zobrazení ikony
+        // 1. Okamžité ztlumení ještě před spuštěním přehrávání
+        video.muted = true;
+        video.volume = 0;
+
+        const executeSkip = () => {
+            try {
+                if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+                    video.currentTime = Math.max(0, video.duration - 0.1);
+                }
+                video.dispatchEvent(new Event('timeupdate', { bubbles: true }));
+                video.dispatchEvent(new Event('ended', { bubbles: true }));
                 showNotification();
-            }, 500);
+            } catch (e) {
+                console.error("TravianSkip error:", e);
+            }
         };
 
-        if (video.readyState >= 2) {
-            skip();
-        } else {
-            video.addEventListener('canplay', skip, { once: true });
-        }
+        // 2. Pokus o okamžitý přeskok hned teď
+        executeSkip();
+
+        // 3. Pojistka: pokud ještě nebylo načtené `duration`, skočíme ihned jak to přehrávač dovolí
+        video.addEventListener('loadedmetadata', executeSkip, { once: true });
+        video.addEventListener('canplay', executeSkip, { once: true });
     }
 
-    const observer = new MutationObserver(() => {
-        const video = document.querySelector('#videoArea video') || document.querySelector('video');
-        if (video) {
+    function scanForVideos() {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
             handleVideo(video);
-        }
-    });
+        });
+    }
 
+    // Sledování změn v DOMu pro okamžitý záchyt nově vytvořeného videa
+    const observer = new MutationObserver(() => scanForVideos());
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Agresivní kontrola každých 100 ms, aby k přeskočení došlo prakticky okamžitě
+    setInterval(scanForVideos, 100);
 })();

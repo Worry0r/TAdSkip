@@ -1,8 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "RADOVANE MILUJI TĚ",
-  "version": "1.4",
-  "description": "Radovan je nejlepší",
+  "name": "Travian Video Auto Skip",
+  "version": "2.0",
+  "description": "Milujeme tě Radovane",
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://*.travian.cz/*",
+    "*://*.travian.com/*",
+    "*://*.traviangames.com/*",
+    "*://*.ayetstudios.com/*"
+  ],
   "icons": {
     "128": "icon.png"
   },
@@ -10,6 +19,15 @@
     "default_icon": {
       "128": "icon.png"
     }
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_ayet",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
   },
   "web_accessible_resources": [
     {
