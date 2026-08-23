@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Radovane MILUJI TĚ",
+  "name": "RADOVANE MILUJI TĚ",
   "version": "1.0",
   "description": "Radovan je nejlepší",
   "icons": {
@@ -11,6 +11,16 @@
       "128": "icon.png"
     }
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["icon.png"],
+      "matches": [
+        "*://*.travian.cz/*",
+        "*://*.travian.com/*",
+        "*://*.traviangames.com/*"
+      ]
+    }
+  ],
   "content_scripts": [
     {
       "matches": [
