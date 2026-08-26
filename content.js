@@ -1,42 +1,6 @@
 (function () {
     'use strict';
 
-    function showNotification() {
-        if (document.getElementById('travian-skip-icon')) return;
-
-        const box = document.createElement('div');
-        box.id = 'travian-skip-icon';
-        
-        const img = document.createElement('img');
-        img.src = chrome.runtime.getURL('icon.png');
-        img.style.width = '200px';
-        img.style.height = '200px';
-        img.style.borderRadius = '6px';
-        img.style.display = 'block';
-
-        box.appendChild(img);
-
-        Object.assign(box.style, {
-            position: 'fixed',
-            top: '200px',
-            left: '10px',
-            backgroundColor: '#d9534f',
-            padding: '8px',
-            borderRadius: '10px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-            zIndex: '9999999',
-            pointerEvents: 'none',
-            transition: 'opacity 0.5s ease'
-        });
-
-        document.body.appendChild(box);
-
-        setTimeout(() => {
-            box.style.opacity = '0';
-            setTimeout(() => box.remove(), 500);
-        }, 3000);
-    }
-
     function handleVideo(video) {
         if (video.dataset.skipHandled) return;
         video.dataset.skipHandled = "true";
@@ -52,7 +16,6 @@
                 }
                 video.dispatchEvent(new Event('timeupdate', { bubbles: true }));
                 video.dispatchEvent(new Event('ended', { bubbles: true }));
-                showNotification();
             } catch (e) {
                 console.error("TravianSkip error:", e);
             }

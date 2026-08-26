@@ -4,8 +4,7 @@
   "version": "3.0",
   "description": "Radovane, Miluji tě",
   "permissions": [
-    "declarativeNetRequest",
-    "notifications"
+    "declarativeNetRequest"
   ],
   "host_permissions": [
     "*://*.travian.cz/*",
@@ -13,9 +12,6 @@
     "*://*.traviangames.com/*",
     "*://*.ayetstudios.com/*"
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "icons": {
     "128": "icon.png"
   },
@@ -33,16 +29,6 @@
       }
     ]
   },
-  "web_accessible_resources": [
-    {
-      "resources": ["icon.png", "welcome.html"],
-      "matches": [
-        "*://*.travian.cz/*",
-        "*://*.travian.com/*",
-        "*://*.traviangames.com/*"
-      ]
-    }
-  ],
   "content_scripts": [
     {
       "matches": [
