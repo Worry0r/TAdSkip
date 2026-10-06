@@ -6,6 +6,7 @@ Chrome extension for Travian bonus videos.
 
 - Blocks the third-party ad SDK (ayeT), so the game uses Travian's own fallback videos instead of real ads.
 - Plays the video at 1% volume from the start. It is not fully muted, because the browser pauses muted videos when you alt-tab away, and a paused video means no reward.
+- Keeps the video playing when you switch tabs or alt-tab: the page always reports itself as visible to the player, and pause requests are ignored while the tab is hidden.
 - The video plays at normal speed. Travian's server checks how long the video played, so skipping or speeding it up means no reward.
 
 ## Install
