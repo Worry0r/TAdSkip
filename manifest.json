@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Travian Video Auto Skip",
-  "version": "3.0",
+  "version": "3.1",
   "description": "Radovane, Miluji tě",
   "permissions": [
     "declarativeNetRequest"
@@ -10,6 +10,7 @@
     "*://*.travian.cz/*",
     "*://*.travian.com/*",
     "*://*.traviangames.com/*",
+    "*://*.ayet.io/*",
     "*://*.ayetstudios.com/*"
   ],
   "icons": {
@@ -34,10 +35,14 @@
       "matches": [
         "*://*.travian.cz/*",
         "*://*.travian.com/*",
-        "*://*.traviangames.com/*"
+        "*://*.traviangames.com/*",
+        "*://*.ayet.io/*",
+        "*://*.ayetstudios.com/*"
       ],
       "js": ["content.js"],
-      "run_at": "document_end"
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
     }
   ]
 }
