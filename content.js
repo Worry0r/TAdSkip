@@ -2,12 +2,16 @@
     'use strict';
 
     // Server kontroluje délku přehrání - zrychlené video odmítne odměnu (403),
-    // proto necháváme normální rychlost a video jen ztlumíme
+    // proto necháváme normální rychlost
     const RATE = 1;
 
+    // Ztlumené video prohlížeč po alt-tabu pozastaví, takže místo ztlumení
+    // necháme 1% hlasitost - video pak běží dál i na pozadí
+    const VOLUME = 0.01;
+
     function applySettings(video) {
-        if (!video.muted) video.muted = true;
-        if (video.volume !== 0) video.volume = 0;
+        if (video.volume !== VOLUME) video.volume = VOLUME;
+        if (video.muted) video.muted = false;
         if (video.playbackRate !== RATE) {
             try {
                 video.playbackRate = RATE;
@@ -24,7 +28,7 @@
         if (seen.has(video)) return;
         seen.add(video);
 
-        // Ztlumíme hned, jak se video objeví, ještě před spuštěním přehrávání
+        // Hlasitost nastavíme hned, jak se video objeví, ještě před spuštěním přehrávání
         applySettings(video);
 
         // Přehrávač si může rychlost/hlasitost resetovat, takže ji vždy vrátíme zpět
